@@ -42,6 +42,7 @@ namespace DatingApp.API
                         opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 });
             services.AddCors();
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddAutoMapper();
             services.AddTransient<Seed>();
             services.AddScoped<IAuthRepository, AuthRepository>();
@@ -55,7 +56,7 @@ namespace DatingApp.API
                         ValidateIssuer = false,
                         ValidateAudience= false
                     };
-                });
+                });                
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
