@@ -23,8 +23,7 @@ export class AuthService {
 
 constructor(private http: HttpClient) { }
 
-changeMemberPhoto(photoUrl: string)
-{
+changeMemberPhoto(photoUrl: string) {
   this.photoUrl.next(photoUrl);
 }
 
@@ -35,7 +34,7 @@ changeMemberPhoto(photoUrl: string)
         if (user) {
           localStorage.setItem('token', user.token);
           this.decodedToken = this.jwtHelper.decodeToken(user.token);
-          localStorage.setItem('user', JSON.stringify(user.user);
+          localStorage.setItem('user', JSON.stringify(user.user));
           this.currentUser = user.user;
           this.changeMemberPhoto(this.currentUser.photoUrl);
           console.log(this.decodedToken);
@@ -44,8 +43,8 @@ changeMemberPhoto(photoUrl: string)
     );
   }
 
-  register(model: any) {
-    return this.http.post(this.baseUrl + 'register', model);
+  register(user: User) {
+    return this.http.post(this.baseUrl + 'register', user);
   }
 
   loggedIn() {
