@@ -1,0 +1,8 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/DatingApp.API/.vs/DatingApp.API/v16
+/DatingApp.API/.vs/slnx.sqlite
+/DatingApp.API/.vs/DatingApp.API/DesignTimeBuild/.dtbcache
