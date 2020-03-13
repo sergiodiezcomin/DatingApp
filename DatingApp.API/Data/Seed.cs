@@ -1,7 +1,8 @@
-using DatingApp.API.Models;
-using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
+using DatingApp.API.Models;
+using Newtonsoft.Json;
+
 namespace DatingApp.API.Data
 {
     public class Seed
@@ -19,8 +20,7 @@ namespace DatingApp.API.Data
 
                     user.PasswordHash = passwordHash;
                     user.PasswordSalt = passwordSalt;
-                    user.UserName = user.UserName.ToLower();
-
+                    user.Username = user.Username.ToLower();
                     context.Users.Add(user);
                 }
 
@@ -33,7 +33,7 @@ namespace DatingApp.API.Data
             using (var hmac = new System.Security.Cryptography.HMACSHA512())
             {
                 passwordSalt = hmac.Key;
-                passwordHash=hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
         }
     }

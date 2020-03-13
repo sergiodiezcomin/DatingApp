@@ -14,13 +14,15 @@ namespace DatingApp.API.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.0-rtm-30799");
+                .HasAnnotation("ProductVersion", "3.0.0");
 
             modelBuilder.Entity("DatingApp.API.Models.Like", b =>
                 {
-                    b.Property<int>("LikerId");
+                    b.Property<int>("LikerId")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<int>("LikeeId");
+                    b.Property<int>("LikeeId")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("LikerId", "LikeeId");
 
@@ -32,23 +34,33 @@ namespace DatingApp.API.Migrations
             modelBuilder.Entity("DatingApp.API.Models.Message", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
-                    b.Property<string>("Content");
+                    b.Property<string>("Content")
+                        .HasColumnType("TEXT");
 
-                    b.Property<DateTime?>("DateRead");
+                    b.Property<string>("DateRead")
+                        .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("MessageSent");
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<bool>("RecipientDeleted");
+                    b.Property<string>("MessageSent")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
-                    b.Property<int>("RecipientId");
+                    b.Property<bool>("RecipientDeleted")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<bool>("SenderDeleted");
+                    b.Property<int>("RecipientId")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<int>("SenderId");
+                    b.Property<bool>("SenderDeleted")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<bool>("isRead");
+                    b.Property<int>("SenderId")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -62,19 +74,27 @@ namespace DatingApp.API.Migrations
             modelBuilder.Entity("DatingApp.API.Models.Photo", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("DateAdded");
+                    b.Property<string>("DateAdded")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
 
-                    b.Property<bool>("IsMain");
+                    b.Property<bool>("IsMain")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<string>("PublicId");
+                    b.Property<string>("PublicId")
+                        .HasColumnType("TEXT");
 
-                    b.Property<string>("Url");
+                    b.Property<string>("Url")
+                        .HasColumnType("TEXT");
 
-                    b.Property<int>("UserId");
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -86,33 +106,50 @@ namespace DatingApp.API.Migrations
             modelBuilder.Entity("DatingApp.API.Models.User", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
-                    b.Property<string>("City");
+                    b.Property<string>("City")
+                        .HasColumnType("TEXT");
 
-                    b.Property<string>("Country");
+                    b.Property<string>("Country")
+                        .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("Created");
+                    b.Property<string>("Created")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DateOfBirth");
+                    b.Property<string>("DateOfBirth")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
-                    b.Property<string>("Gender");
+                    b.Property<string>("Gender")
+                        .HasColumnType("TEXT");
 
-                    b.Property<string>("Interests");
+                    b.Property<string>("Interests")
+                        .HasColumnType("TEXT");
 
-                    b.Property<string>("Introduction");
+                    b.Property<string>("Introduction")
+                        .HasColumnType("TEXT");
 
-                    b.Property<string>("KnownAs");
+                    b.Property<string>("KnownAs")
+                        .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("LastActive");
+                    b.Property<string>("LastActive")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
-                    b.Property<string>("LookingFor");
+                    b.Property<string>("LookingFor")
+                        .HasColumnType("TEXT");
 
-                    b.Property<byte[]>("PasswordHash");
+                    b.Property<byte[]>("PasswordHash")
+                        .HasColumnType("BLOB");
 
-                    b.Property<byte[]>("PasswordSalt");
+                    b.Property<byte[]>("PasswordSalt")
+                        .HasColumnType("BLOB");
 
-                    b.Property<string>("UserName");
+                    b.Property<string>("Username")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -122,9 +159,11 @@ namespace DatingApp.API.Migrations
             modelBuilder.Entity("DatingApp.API.Models.Value", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -136,12 +175,14 @@ namespace DatingApp.API.Migrations
                     b.HasOne("DatingApp.API.Models.User", "Likee")
                         .WithMany("Likers")
                         .HasForeignKey("LikeeId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("DatingApp.API.Models.User", "Liker")
                         .WithMany("Likees")
                         .HasForeignKey("LikerId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DatingApp.API.Models.Message", b =>
@@ -149,12 +190,14 @@ namespace DatingApp.API.Migrations
                     b.HasOne("DatingApp.API.Models.User", "Recipient")
                         .WithMany("MessagesReceived")
                         .HasForeignKey("RecipientId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("DatingApp.API.Models.User", "Sender")
                         .WithMany("MessagesSent")
                         .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DatingApp.API.Models.Photo", b =>
@@ -162,7 +205,8 @@ namespace DatingApp.API.Migrations
                     b.HasOne("DatingApp.API.Models.User", "User")
                         .WithMany("Photos")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
