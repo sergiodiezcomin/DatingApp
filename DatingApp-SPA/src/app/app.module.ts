@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -33,7 +33,7 @@ import { MemberMessagesComponent } from './members/member-messages/member-messag
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { ListsResolver } from './_resolvers/lists.resolver';
 import { MessagesResolver } from './_resolvers/messages.resolver';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -41,6 +41,13 @@ import { MessagesResolver } from './_resolvers/messages.resolver';
 export function tokenGetter() {
    return localStorage.getItem('token');
 }
+
+export class CustomHammerConfig extends HammerGestureConfig  {
+    overrides = {
+        pinch: { enable: false },
+        rotate: { enable: false }
+    };
+ }
 
 @NgModule({
    declarations: [
@@ -60,6 +67,7 @@ export function tokenGetter() {
    ],
    imports: [
       BrowserModule,
+      BrowserAnimationsModule,
       HttpClientModule,
       FormsModule,
       ReactiveFormsModule,
@@ -90,7 +98,8 @@ export function tokenGetter() {
       MemberListResolver,
       MemberEditResolver,
       ListsResolver,
-      MessagesResolver
+      MessagesResolver,
+      { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig }
    ],
    bootstrap: [
       AppComponent
